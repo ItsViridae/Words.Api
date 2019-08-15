@@ -26,5 +26,18 @@ namespace Words.Api.Controllers
         {
             return await _context.Set<Word>().ToListAsync();
         }
+
+        [HttpPost]
+        public ActionResult<Word> CreateWord(string wordToAdd)
+        {
+            var addMe = new Word
+            {
+                Name = wordToAdd
+            };
+            _context.Set<Word>().Add(addMe);
+            _context.SaveChanges();
+
+            return Created("/api/Words", addMe);
+        }
     }
 }
