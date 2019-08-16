@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Words.Api.Data;
 
 namespace Words.Api.Migrations
 {
     [DbContext(typeof(WordsDataContext))]
-    partial class WordsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190816151057_NumberTable")]
+    partial class NumberTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,23 +31,6 @@ namespace Words.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Number");
-                });
-
-            modelBuilder.Entity("Words.Api.Data.Entities.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Age");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("Words.Api.Data.Entities.Word", b =>
