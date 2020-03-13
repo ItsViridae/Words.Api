@@ -1,21 +1,28 @@
 
 function getData(){
-    var newArray = [];
-    let result = data.split(`,,`);
-    for(var line = 0; line < result.length; line++){
-        newArray.push(result[line].split(','));
+    let results = [];
+    let afterFirstSplit = [];
+    let firstSplit = data.split(`,,`);
+    for(var line = 0; line < firstSplit.length; line++){
+        afterFirstSplit.push(firstSplit[line].split(','));
     }
 
-    for (let index in newArray) {
+    for (let index in afterFirstSplit) {
         let isEven = index%2
         if (isEven === 0) {
-            console.log(newArray[index]);
+            let row = afterFirstSplit[index]
+            results.push({
+                Difficulty: row[0],
+                Name: row[1],
+                Description: row[2],
+            });
         }
     }
+    return results;
 }
 export default getData;
 
-let data = `Difficulty,Name,Desciption,,Devin,Luke,Scott,Hebah,Bob,ScottEvilTwin,,
+let data = `Difficulty,Name,Description,,Devin,Luke,Scott,Hebah,Bob,ScottEvilTwin,,
 Easy,Check equality,Check whether two integers are equal or not,,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,,
 Easy,Even or Odd,Check whether a given number is even or odd,,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,,
 Easy,Positive or Negative,Check whether a given number is positive or negative,,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,,
