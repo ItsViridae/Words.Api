@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ProgrammingInterviewPrograms;
 using Vinformatix.Api.Swagger;
 using Vinformatix.Authentication;
 using Words.Api.Data;
@@ -30,6 +31,8 @@ namespace Words.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<IProblemService, ProblemService>();
 
             services.SetupTokenAuthentication(Configuration);
             services.AddDbContext<WordsDataContext>(x =>

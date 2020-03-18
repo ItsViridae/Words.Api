@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\ProgrammingInterviewPrograms\ProgrammingInterviewPrograms\ProgrammingInterviewPrograms.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Vinformatix">
       <HintPath>Dependencies\Vinformatix.dll</HintPath>
     </Reference>
