@@ -16,8 +16,8 @@ namespace Words.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly WordsDataContext context;
-        public UserController(WordsDataContext _context)
+        private readonly WordsDataContext _context;
+        public UserController(WordsDataContext context)
         {
             _context = context;
         }
@@ -27,7 +27,7 @@ namespace Words.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
-            var listOfUsers = context.Set<User>().ToList();
+            var listOfUsers = _context.Set<User>().ToList();
             if (listOfUsers == null)
             {
                 return BadRequest();
@@ -40,7 +40,7 @@ namespace Words.Api.Controllers
         public async Task<ActionResult<UserDto>> GetUser(int id)
         {
             //var user = context.Set<User>().Find(id);
-            var user = await context.Set<User>().Where(x => x.Id == id).FirstOrDefaultAsync();
+            var user = await _context.Set<User>().Where(x => x.Id == id).FirstOrDefaultAsync();
             if(user == null)
             {
                 return BadRequest();
@@ -70,10 +70,10 @@ namespace Words.Api.Controllers
                 Password = dto.Password
             };
 
-            context.Add(user);
-            await context.SaveChangesAsync();
+            _context.Add(user);
+            await _context.SaveChangesAsync();
 
-            var entity = context.Set<User>().Where(x => x.Username == dto.Username).FirstOrDefault();
+            var entity = _context.Set<User>().Where(x => x.Username == dto.Username).FirstOrDefault();
             if (entity == null)
             {
                 return BadRequest();
@@ -94,7 +94,7 @@ namespace Words.Api.Controllers
         [HttpPut]
         public async Task<ActionResult<UserDto>> EditUser(EditUserDto dto)
         {
-            var user = await context.Set<User>().FindAsync(dto.Id);
+            var user = await _context.Set<User>().FindAsync(dto.Id);
             if (user == null)
             {
                 return BadRequest();
@@ -106,10 +106,10 @@ namespace Words.Api.Controllers
             user.Username = dto.Username;
             user.Password = dto.Password;
 
-            context.Set<User>().Update(user);
-            await context.SaveChangesAsync();
+            _context.Set<User>().Update(user);
+            await _context.SaveChangesAsync();
 
-            var newEntity = await context.Set<User>().FindAsync(dto.Id);
+            var newEntity = await _context.Set<User>().FindAsync(dto.Id);
             if (newEntity == null)
             {
                 return BadRequest();
@@ -129,14 +129,14 @@ namespace Words.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult<OkResult>> DeleteUser(int id)
         {
-            var userToDelete = await context.Set<User>().FindAsync(id);
+            var userToDelete = await _context.Set<User>().FindAsync(id);
             if (userToDelete == null)
             {
                 return BadRequest();
             }
 
-            context.Set<User>().Remove(userToDelete);
-            await context.SaveChangesAsync();
+            _context.Set<User>().Remove(userToDelete);
+            await _context.SaveChangesAsync();
 
             return Ok();
         }

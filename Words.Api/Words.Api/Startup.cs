@@ -33,7 +33,7 @@ namespace Words.Api
 
             services.SetupTokenAuthentication(Configuration);
             services.AddDbContext<WordsDataContext>(x =>
-                x.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]));
+                x.UseSqlServer(Configuration["ConnectionString:HomeConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
